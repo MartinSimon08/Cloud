@@ -3,12 +3,13 @@ import type { LandingContent } from "./types";
 // Clon del copy real de wemenu.app, para comparación local.
 // No usar tal cual en un despliegue público: es contenido y marca de otra empresa.
 export const content: LandingContent = {
-  brand: "WeMenú",
+  brand: "TuMenuAhora",
   nav: {
     links: [
+      { label: "Inicio", href: "#top" },
       { label: "Producto", href: "#features" },
       { label: "Cómo funciona", href: "#how" },
-      { label: "Por qué WeMenú", href: "#why" },
+      { label: "Por qué TuMenuAhora", href: "#why" },
       { label: "Preguntas", href: "#faq" },
     ],
     cta: "Empezar ahora",
@@ -57,7 +58,7 @@ export const content: LandingContent = {
   solution: {
     kicker: "La solución",
     heading: "Un menú que trabaja para vos.",
-    sub: "WeMenú es la plataforma de pedidos que tu negocio debería tener. QR, delivery, take away y salón — con tu marca, tu dominio, tus reglas.",
+    sub: "TuMenuAhora es la plataforma de pedidos que tu negocio debería tener. QR, delivery, take away y salón — con tu marca, tu dominio, tus reglas.",
   },
   features: {
     kicker: "Lo que hace",
@@ -80,7 +81,7 @@ export const content: LandingContent = {
       {
         tag: "Tu marca",
         title: "Tu dominio. Tu identidad. Tu plata.",
-        desc: "tunegocio.com o tunegocio.wemenu.app. Logo, colores, tipografía — como vos querés. Pagos nativos. Costo fijo, sin comisiones por venta.",
+        desc: "tunegocio.com o tunegocio.tumenuahora.com. Logo, colores, tipografía — como vos querés. Pagos nativos. Costo fijo, sin comisiones por venta.",
         bullets: ["Dominio propio", "Pagos integrados", "Sin comisiones"],
         kind: "domain",
       },
@@ -125,7 +126,7 @@ export const content: LandingContent = {
     heading: "Lo que siempre nos preguntan.",
     items: [
       { q: "¿Cuánto cuesta?", a: "Costo fijo mensual, sin comisiones por pedido. El plan depende de cantidad de sucursales y canales activos. En la demo te armamos una propuesta a medida." },
-      { q: "¿Puedo usar mi propio dominio?", a: "Sí. Podés usar tunegocio.com o tu subdominio en wemenu.app. Lo configuramos nosotros, vos no tocás DNS." },
+      { q: "¿Puedo usar mi propio dominio?", a: "Sí. Podés usar tunegocio.com o tu subdominio en tumenuahora.com. Lo configuramos nosotros, vos no tocás DNS." },
       { q: "¿Necesito instalar algo?", a: "Nada. Es 100% en la nube. Tus clientes entran desde el navegador, vos gestionás desde cualquier dispositivo." },
       { q: "¿Funciona con pagos digitales?", a: "Sí, integración nativa. También pagos en efectivo, débito en el local, y podés sumar otros métodos." },
       { q: "¿Cómo es la implementación?", a: "Agendamos una demo de 30 minutos. Si avanzamos, en 48 horas hábiles te damos el alta comercial y accedés a la plataforma." },
@@ -138,8 +139,8 @@ export const content: LandingContent = {
     cols: [
       { title: "Producto", links: ["Pedidos", "Gestión", "Tu marca", "Soporte"] },
       { title: "Empresa", links: ["Nosotros", "Clientes", "Blog", "Términos"] },
-      { title: "Contacto", links: ["hola@wemenu.app", "WhatsApp", "Instagram"] },
+      { title: "Contacto", links: ["hola@tumenuahora.com", "WhatsApp", "Instagram"] },
     ],
-    bottom: ["© 2026 WeMenú. Todos los derechos reservados.", "Hecho en Argentina ✦"],
+    bottom: ["© 2026 TuMenuAhora. Todos los derechos reservados.", "Hecho en Argentina "],
   },
 };
