@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Rincón del Sabor — Menú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="cover">
+  <div class="cover-inner">
+    <span class="cover-eyebrow">Bienvenidos a</span>
+    <h1 class="cover-title">El Rincón del Sabor</h1>
+    <p class="cover-desc">
+      Cocina casera de barrio desde 1998. Recetas de siempre, hechas con ingredientes
+      frescos y mucho cariño, para disfrutar en familia o para llevar.
+    </p>
+  </div>
+</header>
+
+<main>
+  <nav class="tabs" id="tabs" aria-label="Categorías del menú">
+    <button class="tab active" data-category="todos">Todos</button>
+    <button class="tab" data-category="entradas">Entradas</button>
+    <button class="tab" data-category="principales">Principales</button>
+    <button class="tab" data-category="postres">Postres</button>
+    <button class="tab" data-category="bebidas">Bebidas</button>
+  </nav>
+
+  <section class="menu-list" id="menuList"></section>
+</main>
+
+<footer>
+  <p>El Rincón del Sabor — Av. San Martín 1248</p>
+  <p class="copy">Precios en dólares de referencia. Plantilla de ejemplo.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

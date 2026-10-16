@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fuego &amp; Brasa — Menú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="cover">
+  <div class="cover-inner">
+    <span class="cover-eyebrow">Parrilla &amp; Brasas</span>
+    <h1 class="cover-title">Fuego &amp; Brasa</h1>
+    <p class="cover-desc">
+      Carnes seleccionadas, cocción lenta a las brasas y guarniciones caseras.
+      La parrilla de siempre, con el mismo fuego de los primeros días.
+    </p>
+  </div>
+</header>
+
+<main>
+  <nav class="tabs" id="tabs" aria-label="Categorías del menú">
+    <button class="tab active" data-category="todos">Todos</button>
+    <button class="tab" data-category="entradas">Entradas</button>
+    <button class="tab" data-category="principales">Principales</button>
+    <button class="tab" data-category="postres">Postres</button>
+    <button class="tab" data-category="bebidas">Bebidas</button>
+  </nav>
+
+  <section class="menu-list" id="menuList"></section>
+  <p class="empty-msg" id="emptyMsg" hidden>No hay platos en esta categoría.</p>
+</main>
+
+<footer>
+  <p>Fuego &amp; Brasa — Parrilla de salón y para llevar</p>
+  <p class="copy">
+    Las fotos son solo de referencia (caja con degradé e ícono).
+    Reemplazá cada <code>.dish-photo</code> por tu propia foto cuando la tengas.
+  </p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
