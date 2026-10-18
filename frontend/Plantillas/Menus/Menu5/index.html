@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BARDO° Burger &amp; Birra — Menú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="cover">
+  <div class="cover-tape">100% BARDO</div>
+  <div class="cover-inner">
+    <p class="cover-eyebrow">Birra fría · Música fuerte · Cero chamuyo</p>
+    <h1 class="cover-title">BARDO<span class="deg">°</span><br>BURGER &amp; BIRRA</h1>
+    <p class="cover-desc">
+      Hamburguesas que pegan fuerte y birra que no se achica.
+      Sentate, pedís y te la bancás.
+    </p>
+  </div>
+</header>
+
+<main>
+  <nav class="tabs" id="tabs" aria-label="Categorías del menú">
+    <button class="tab active" data-category="todos">Todos</button>
+    <button class="tab" data-category="hamburguesas">🍔 Hamburguesas</button>
+    <button class="tab" data-category="picadas">🍟 Picadas</button>
+    <button class="tab" data-category="birras">🍺 Birras</button>
+    <button class="tab" data-category="tragos">🥃 Tragos</button>
+  </nav>
+
+  <section class="menu-grid" id="menuGrid"></section>
+  <p class="empty-msg" id="emptyMsg" hidden>Acá no hay nada, como tu heladera un domingo.</p>
+</main>
+
+<footer>
+  <p>BARDO° Burger &amp; Birra — Para llevar, delivery y para quedarse hasta que cierren.</p>
+  <p class="copy">Precios ficticios. Plantilla de ejemplo. La excusa para no venir es tuya.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
