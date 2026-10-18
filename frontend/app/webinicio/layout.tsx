@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { Fraunces, JetBrains_Mono } from "next/font/google";
 
 export const metadata: Metadata = {
-  title: "TuMenuAhora — Menú Digital para Restaurantes",
+  title: "TuMenuAhora — Menú digital para bares y restaurantes",
   description:
-    "Tu restaurante, sin papel, sin comisiones, sin vueltas. Escaneá, creá y publicá tu menú digital con TuMenuAhora.",
+    "Armá tu carta digital, sumá pedidos por tu propio dominio y dejá de depender de apps de delivery con comisión.",
 };
 
 const fraunces = Fraunces({

@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TuMenuAhora | Escaneá · Creá · Publicá",
+  title: "TuMenuAhora | Menú digital, pedidos y delivery propio",
   description:
-    "Tu restaurante, sin papel, sin comisiones, sin vueltas. Plataforma de menú digital y pedidos.",
+    "Creá tu carta digital, recibí pedidos con tu propio dominio y manejá tu local desde un solo panel. Sin comisión por venta.",
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",

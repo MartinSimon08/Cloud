@@ -357,10 +357,10 @@ function ChatCard() {
       </div>
       <div className="flex flex-col gap-2 text-[13px]">
         <div className="ml-auto max-w-[80%] rounded-2xl rounded-tr-sm bg-sky-500 px-3.5 py-2 text-white shadow-sm font-medium">
-          Hola, ¿cómo configuro mis categorías de menú?
+          Hola, ¿puedo cambiar un precio desde el celular?
         </div>
         <div className="max-w-[80%] rounded-2xl rounded-tl-sm bg-slate-100 border border-slate-200/80 px-3.5 py-2 text-slate-700 dark:bg-white/10 dark:border-transparent dark:text-[#F5F2EA]/85">
-          ¡Hola! Podés escanear tu carta física o armarla desde el panel en menos de 5 minutos. ¿Te ayudo por WhatsApp?
+          ¡Sí! Lo actualizás vos mismo desde el panel y se ve al instante. Si querés te lo muestro ahora por WhatsApp.
         </div>
       </div>
     </div>
@@ -583,7 +583,7 @@ export function Landing({ content }: { content: LandingContent }) {
                   <div className="mb-2 flex items-center justify-between border-b border-slate-200 pb-2 dark:border-white/10">
                     <div className="flex items-center gap-1.5">
                       <TuMenuAhoraIcon className="h-4 w-4" />
-                      <span className="text-[11px] font-bold">La Trattoria Dorada</span>
+                      <span className="text-[11px] font-bold">Pizzería Napoli</span>
                     </div>
                     <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[9px] font-bold text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300">
                       Abierto
@@ -594,17 +594,17 @@ export function Landing({ content }: { content: LandingContent }) {
                   <div className="mb-2.5 flex gap-1 text-[10px]">
                     <span className="rounded-full bg-sky-500 px-2 py-0.5 font-bold text-white">Todos</span>
                     <span className="rounded-full bg-slate-200 px-2 py-0.5 font-medium text-slate-700 dark:bg-white/10 dark:text-slate-300">Pizzas</span>
-                    <span className="rounded-full bg-slate-200 px-2 py-0.5 font-medium text-slate-700 dark:bg-white/10 dark:text-slate-300">Pastas</span>
+                    <span className="rounded-full bg-slate-200 px-2 py-0.5 font-medium text-slate-700 dark:bg-white/10 dark:text-slate-300">Bebidas</span>
                   </div>
 
                   {/* Sample Dish Card 1 */}
                   <div className="mb-2 rounded-xl border border-slate-200 bg-white p-2 shadow-xs dark:border-white/10 dark:bg-[#182032]">
                     <div className="flex justify-between items-start">
                       <div>
-                        <div className="text-[11px] font-bold text-slate-800 dark:text-white">🍕 Pizza Margarita</div>
-                        <div className="text-[9px] text-slate-500 dark:text-slate-400">Salsa de tomate, mozzarella y albahaca.</div>
+                        <div className="text-[11px] font-bold text-slate-800 dark:text-white">🍕 Muzzarella Grande</div>
+                        <div className="text-[9px] text-slate-500 dark:text-slate-400">Salsa de tomate casera y mozzarella.</div>
                       </div>
-                      <span className="text-[11px] font-bold text-sky-600 dark:text-sky-400">$12.00</span>
+                      <span className="text-[11px] font-bold text-sky-600 dark:text-sky-400">$7.800</span>
                     </div>
                     <div className="mt-1.5 flex justify-end">
                       <button className="rounded-md bg-sky-500 px-2 py-0.5 text-[9px] font-bold text-white shadow-xs">
@@ -617,17 +617,17 @@ export function Landing({ content }: { content: LandingContent }) {
                   <div className="rounded-xl border border-slate-200 bg-white p-2 shadow-xs dark:border-white/10 dark:bg-[#182032]">
                     <div className="flex justify-between items-start">
                       <div>
-                        <div className="text-[11px] font-bold text-slate-800 dark:text-white">🍞 Bruschetta Clásica</div>
-                        <div className="text-[9px] text-slate-500 dark:text-slate-400">Tomates frescos con aceite de oliva.</div>
+                        <div className="text-[11px] font-bold text-slate-800 dark:text-white">🥤 Gaseosa Línea</div>
+                        <div className="text-[9px] text-slate-500 dark:text-slate-400">Botella de 500ml bien helada.</div>
                       </div>
-                      <span className="text-[11px] font-bold text-sky-600 dark:text-sky-400">$6.50</span>
+                      <span className="text-[11px] font-bold text-sky-600 dark:text-sky-400">$2.200</span>
                     </div>
                   </div>
 
                   {/* Bottom bar inside phone */}
                   <div className="mt-auto flex items-center justify-between rounded-xl bg-slate-900 px-3 py-2 text-[10px] text-white dark:bg-sky-600">
                     <span>🛒 2 items</span>
-                    <span className="font-bold">$18.50</span>
+                    <span className="font-bold">$10.000</span>
                   </div>
                 </div>
               </div>
