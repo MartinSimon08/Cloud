@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Trattoria Dorada — Menú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-overlay"></div>
+  <nav class="topbar">
+    <span class="logo">🍽️ La Trattoria <em>Dorada</em></span>
+    <div class="cart-btn" id="cartBtn">
+      🛒 <span id="cartCount">0</span>
+    </div>
+  </nav>
+  <div class="hero-content">
+    <h1>Nuestro Menú</h1>
+    <p>Sabores hechos con pasión, servidos con amor.</p>
+  </div>
+</header>
+
+<main>
+  <section class="controls">
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-category="todos">Todos</button>
+      <button class="tab" data-category="entradas">Entradas</button>
+      <button class="tab" data-category="principales">Principales</button>
+      <button class="tab" data-category="postres">Postres</button>
+      <button class="tab" data-category="bebidas">Bebidas</button>
+    </div>
+    <input type="text" id="search" placeholder="Buscar un plato...">
+  </section>
+
+  <section class="menu-grid" id="menuGrid"></section>
+
+  <p class="empty-msg" id="emptyMsg" hidden>No se encontraron platos 😕</p>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <div>
+      <h3>La Trattoria Dorada</h3>
+      <p>Av. Siempre Viva 742, Ciudad Jardín</p>
+    </div>
+    <div>
+      <h3>Horario</h3>
+      <p>Lun a Dom: 12:00 — 23:30</p>
+    </div>
+    <div>
+      <h3>Contacto</h3>
+      <p>+54 11 5555-0198</p>
+    </div>
+  </div>
+  <p class="copy">© 2026 La Trattoria Dorada. Todos los derechos reservados.</p>
+</footer>
+
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h2>Tu pedido</h2>
+    <button id="closeCart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total">Total: <span id="cartTotal">$0.00</span></div>
+    <button class="clear-btn" id="clearCart">Vaciar pedido</button>
+  </div>
+</div>
+<div class="overlay" id="overlay"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+:root {
+  --bg: #f4f7f2;
+  --paper: #ffffff;
+  --ink: #1f2b1d;
+  --muted: #68785f;
+  --line: #dfe7d8;
+  --green: #4c7c3f;
+  --green-soft: #e4efdc;
+  --accent: #e08a3e;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* ---------- COVER ---------- */
+.cover {
+  background: linear-gradient(135deg, var(--green), #2f5a26);
+  color: #fff;
+  padding: 64px 6% 56px;
+  text-align: center;
+}
+
+.cover-inner { max-width: 640px; margin: 0 auto; }
+
+.cover-title {
+  font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.cover-title span { color: #c9e6ab; }
+
+.cover-desc {
+  margin-top: 14px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e3efd8;
+}
+
+/* ---------- TABS ---------- */
+.tabs {
+  max-width: 1000px;
+  margin: 30px auto 0;
+  padding: 0 6%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.tab {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 8px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.tab:hover { border-color: var(--green); }
+
+.tab.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* ---------- MENU GRID ---------- */
+.menu-grid {
+  max-width: 1000px;
+  margin: 28px auto 70px;
+  padding: 0 6%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.dish-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dish-category {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.dish-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.dish-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.dish-price {
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.dish-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ingredient-tag {
+  font-size: 0.76rem;
+  color: var(--muted);
+  background: var(--green-soft);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.empty-msg {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 0;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 6% 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+footer .copy { margin-top: 4px; font-size: 0.78rem; }
