@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verde Cocina Natural — Menú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="cover">
+  <div class="cover-inner">
+    <h1 class="cover-title">Verde <span>Cocina Natural</span></h1>
+    <p class="cover-desc">
+      Comida real, de estación y mayormente vegetal. Platos pensados para
+      sentirte liviano y con energía, sin resignar sabor.
+    </p>
+  </div>
+</header>
+
+<main>
+  <nav class="tabs" id="tabs" aria-label="Categorías del menú">
+    <button class="tab active" data-category="todos">Todos</button>
+    <button class="tab" data-category="entradas">Entradas</button>
+    <button class="tab" data-category="principales">Principales</button>
+    <button class="tab" data-category="postres">Postres</button>
+    <button class="tab" data-category="bebidas">Bebidas</button>
+  </nav>
+
+  <section class="menu-grid" id="menuGrid"></section>
+  <p class="empty-msg" id="emptyMsg" hidden>No hay platos en esta categoría.</p>
+</main>
+
+<footer>
+  <p>Verde Cocina Natural — Pedidos para llevar y delivery</p>
+  <p class="copy">Precios en dólares de referencia. Plantilla de ejemplo.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
