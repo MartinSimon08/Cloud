@@ -1,0 +1,152 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  FoodHub - API Gateway (HTTP API) + Lambda (restaurants & menus CRUD),
+  authenticated with an existing Cognito User Pool, backed by MongoDB Atlas.
+
+Parameters:
+  ExistingUserPoolId:
+    Type: String
+    Description: ID of the already-provisioned Cognito User Pool (region us-east-2).
+    Default: us-east-2_p38HjKWPB
+  ExistingUserPoolClientId:
+    Type: String
+    Description: App Client ID of the already-provisioned Cognito User Pool.
+  AllowedWebOrigin:
+    Type: String
+    Description: Production frontend origin (Vercel URL) allowed by CORS, in addition to localhost:3000.
+    Default: http://localhost:3000
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 10
+    MemorySize: 256
+    ReservedConcurrentExecutions: 5
+    Environment:
+      Variables:
+        MONGODB_URI: "{{resolve:ssm-secure:/foodhub/mongodb-uri:1}}"
+        MONGODB_DB_NAME: foodhub
+
+Resources:
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - !Ref AllowedWebOrigin
+          - http://localhost:3000
+        AllowHeaders:
+          - authorization
+          - content-type
+        AllowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+      Auth:
+        Authorizers:
+          CognitoAuthorizer:
+            JwtConfiguration:
+              issuer: !Sub https://cognito-idp.${AWS::Region}.amazonaws.com/${ExistingUserPoolId}
+              audience:
+                - !Ref ExistingUserPoolClientId
+            IdentitySource: "$request.header.Authorization"
+        DefaultAuthorizer: CognitoAuthorizer
+
+  RestaurantsFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints:
+          - src/lambda/restaurants/index.ts
+        Minify: true
+        Target: es2020
+    Properties:
+      CodeUri: .
+      Handler: src/lambda/restaurants/index.handler
+      Events:
+        ListRestaurants:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /restaurants
+            Method: get
+        CreateRestaurant:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /restaurants
+            Method: post
+        GetRestaurant:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /restaurants/{id}
+            Method: get
+        UpdateRestaurant:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /restaurants/{id}
+            Method: put
+        DeleteRestaurant:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /restaurants/{id}
+            Method: delete
+
+  MenusFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints:
+          - src/lambda/menus/index.ts
+        Minify: true
+        Target: es2020
+    Properties:
+      CodeUri: .
+      Handler: src/lambda/menus/index.handler
+      Events:
+        ListMenus:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /restaurants/{id}/menus
+            Method: get
+        CreateMenu:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /restaurants/{id}/menus
+            Method: post
+        GetMenu:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /menus/{menuId}
+            Method: get
+        UpdateMenu:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /menus/{menuId}
+            Method: put
+        DeleteMenu:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /menus/{menuId}
+            Method: delete
+
+Outputs:
+  UserPoolId:
+    Value: !Ref ExistingUserPoolId
+  UserPoolClientId:
+    Value: !Ref ExistingUserPoolClientId
+  HttpApiUrl:
+    Value: !Sub "https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com"
