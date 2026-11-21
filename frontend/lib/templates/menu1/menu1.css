@@ -1,0 +1,198 @@
+/*
+ * Ported from frontend/Plantillas/Menus/Menu1 ("La Trattoria Dorada").
+ * Card grid with search + category tabs. The original's shopping-cart UI
+ * (add to order, running total, "Pedir por WhatsApp") was removed by
+ * request — this is a browse-only menu now.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+.menu1 {
+  --gold: #c9a15a;
+  --dark: #201812;
+  --cream: #fbf6ee;
+  --text: #3a2e22;
+  --muted: #8a7b68;
+  --red: #a8352c;
+  --radius: 14px;
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+
+  font-family: 'Poppins', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  min-height: 100%;
+}
+
+.menu1 * {
+  box-sizing: border-box;
+}
+
+.menu1 h1, .menu1 h2, .menu1 h3, .menu1 .logo {
+  font-family: 'Playfair Display', serif;
+}
+
+.menu1 .hero {
+  position: relative;
+  min-height: 40vh;
+  background: linear-gradient(rgba(20, 14, 10, 0.55), rgba(20, 14, 10, 0.75)),
+    url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=70') center/cover no-repeat;
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+}
+
+.menu1 .topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+}
+
+.menu1 .back-link {
+  color: var(--cream);
+  opacity: 0.85;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.menu1 .back-link:hover { text-decoration: underline; }
+
+.menu1 .logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.menu1 .logo-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.menu1 .hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  padding: 0 20px 40px;
+}
+.menu1 .hero-content h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); color: #fff; }
+.menu1 .hero-content p { color: var(--gold); font-size: 1.05rem; letter-spacing: 0.5px; }
+
+.menu1 .controls {
+  max-width: 1100px;
+  margin: 30px auto 10px;
+  padding: 0 5%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu1 .tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.menu1 .tab {
+  border: 1px solid #ddd0ba;
+  background: #fff;
+  color: var(--text);
+  padding: 8px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.menu1 .tab:hover { border-color: var(--gold); }
+.menu1 .tab.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+.menu1 .search-input {
+  padding: 10px 16px;
+  border-radius: 30px;
+  border: 1px solid #ddd0ba;
+  min-width: 220px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  background: #fff;
+  color: var(--text);
+}
+.menu1 .search-input:focus { border-color: var(--gold); }
+
+.menu1 .menu-grid {
+  max-width: 1100px;
+  margin: 20px auto 60px;
+  padding: 0 5%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.menu1 .card {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.menu1 .card:hover { transform: translateY(-4px); box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16); }
+
+.menu1 .card-img {
+  height: 160px;
+  width: 100%;
+  object-fit: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  background: linear-gradient(135deg, #f0e4cc, #e2d3b0);
+}
+
+.menu1 .card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; gap: 8px; }
+.menu1 .card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.menu1 .card-top h3 { font-size: 1.05rem; }
+.menu1 .price { color: var(--red); font-weight: 600; white-space: nowrap; }
+.menu1 .desc { color: var(--muted); font-size: 0.85rem; line-height: 1.4; flex: 1; }
+
+.menu1 .empty-msg { text-align: center; color: var(--muted); padding: 40px 0 80px; }
+
+.menu1 footer {
+  background: var(--dark);
+  color: var(--cream);
+  padding: 34px 5% 20px;
+  text-align: center;
+}
+.menu1 footer p { color: #d8cdbc; font-size: 0.9rem; }
+
+.menu1 .whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background-color: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+.menu1 .whatsapp-float:hover {
+  transform: scale(1.08);
+}
+
+@media (max-width: 600px) {
+  .menu1 .controls { flex-direction: column; align-items: stretch; }
+  .menu1 .search-input { min-width: unset; }
+}

@@ -2,7 +2,6 @@ export type LandingContent = {
   brand: string;
   nav: {
     links: { label: string; href: string }[];
-    cta: string;
   };
   hero: {
     eyebrow: string;

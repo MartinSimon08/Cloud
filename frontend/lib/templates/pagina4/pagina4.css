@@ -1,0 +1,234 @@
+/*
+ * Ported from frontend/Plantillas/Paginas/Pagina4 ("Food" / Grilli).
+ * Dark, gold fine-dining look. The original's 3-slide hero and its "Reservar
+ * una mesa" booking form are the two features with no backing feature here
+ * (no booking backend, same call as everywhere else in this app) — the hero
+ * becomes a single slide, and the reservation section becomes a real
+ * contact panel (phone/address/hours) instead of a form that goes nowhere.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Forum&display=swap');
+
+.pagina4 {
+  --gold: #e3cd9c;
+  --gold-soft: rgba(227, 205, 156, 0.14);
+  --bg: #0e0c0a;
+  --paper: #171411;
+  --paper-2: #1c1815;
+  --ink: #f3efe8;
+  --muted: #a89f93;
+
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.pagina4 * { box-sizing: border-box; }
+.pagina4 a { text-decoration: none; color: inherit; }
+.pagina4 h1, .pagina4 h2, .pagina4 .brand-name { font-family: 'Forum', cursive; }
+
+.pagina4 .btn {
+  display: inline-block;
+  padding: 0.9rem 2.2rem;
+  background: var(--gold);
+  color: #241d13;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.pagina4 .btn:hover { background: #fff; }
+.pagina4 .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+.pagina4 .btn-outline:hover { background: var(--gold-soft); }
+
+.pagina4 .topbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  justify-content: center;
+  padding: 10px 6%;
+  background: var(--paper);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.pagina4 .topbar .item { display: flex; align-items: center; gap: 6px; }
+.pagina4 .topbar svg { color: var(--gold); flex-shrink: 0; }
+
+.pagina4 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 6%;
+  position: sticky;
+  top: 0;
+  background: rgba(14, 12, 10, 0.92);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+}
+.pagina4 .brand-name { font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+.pagina4 .logo-badge { width: 40px; height: 40px; border-radius: 999px; object-fit: cover; border: 1px solid var(--gold); }
+.pagina4 .nav-items { display: flex; gap: 2.2rem; }
+.pagina4 .nav-items a { font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+.pagina4 .nav-items a:hover { color: var(--gold); }
+.pagina4 .nav-toggle { display: none; background: none; border: none; color: var(--ink); cursor: pointer; }
+.pagina4 .nav-mobile { display: none; }
+.pagina4 .nav-mobile.open { display: flex; flex-direction: column; gap: 1.2rem; padding: 1.2rem 6% 1.8rem; background: var(--paper); }
+
+.pagina4 .hero {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-color: #1a1510;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.pagina4 .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.35)); }
+.pagina4 .hero-content { position: relative; z-index: 2; max-width: 680px; padding: 0 20px; }
+
+.pagina4 .hero-slider { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+.pagina4 .hero-slide {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.pagina4 .hero-slide.active { opacity: 1; }
+.pagina4 .hero-slider-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 3;
+  width: 42px; height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pagina4 .hero-slider-btn:hover { background: rgba(0, 0, 0, 0.5); }
+.pagina4 .hero-slider-btn.prev { left: 5%; }
+.pagina4 .hero-slider-btn.next { right: 5%; }
+.pagina4 .hero-slider-dots { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 0.5rem; }
+.pagina4 .hero-slider-dot {
+  width: 9px; height: 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+.pagina4 .hero-slider-dot.active { background: var(--gold); border-color: var(--gold); }
+@media (max-width: 640px) {
+  .pagina4 .hero-slider-btn { display: none; }
+}
+.pagina4 .hero-content .subtitle { color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; font-weight: 700; }
+.pagina4 .hero-content h1 { font-size: clamp(2.6rem, 8vw, 6rem); margin: 1rem 0; line-height: 1.05; }
+.pagina4 .hero-content p { color: #ddd; font-size: 1.1rem; margin-bottom: 1.6rem; }
+
+.pagina4 .section { padding: 5.5rem 6%; text-align: center; }
+.pagina4 .section.bg-alt { background: var(--paper); }
+.pagina4 .section-subtitle { color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; font-weight: 700; }
+.pagina4 .section-title { font-size: clamp(1.8rem, 4.5vw, 3.5rem); margin: 0.6rem 0 1rem; }
+.pagina4 .section-text { color: var(--muted); max-width: 620px; margin: 0 auto 2.4rem; line-height: 1.7; }
+
+.pagina4 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.4rem; align-items: center; text-align: left; max-width: 1100px; margin: 0 auto; }
+.pagina4 .about-grid img, .pagina4 .about-grid .img-placeholder { width: 100%; border-radius: 10px; aspect-ratio: 1/1; object-fit: cover; display: block; }
+.pagina4 .about-grid .img-placeholder { background: var(--paper-2); display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.pagina4 .about-grid .contact-label { color: var(--gold); font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase; margin-top: 1.4rem; }
+.pagina4 .about-grid .contact-number { font-size: 1.3rem; font-weight: 700; display: block; margin: 0.3rem 0 1.4rem; }
+
+.pagina4 .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.6rem; max-width: 1100px; margin: 0 auto; text-align: left; }
+.pagina4 .menu-card { display: flex; gap: 1.2rem; align-items: center; background: var(--paper); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1.2rem; }
+.pagina4 .menu-card .thumb, .pagina4 .menu-card .thumb-placeholder { width: 72px; height: 72px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+.pagina4 .menu-card .thumb-placeholder { background: var(--paper-2); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.75rem; }
+.pagina4 .menu-card .title-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.pagina4 .menu-card .title-row a { font-size: 1.1rem; font-weight: 700; font-family: 'Forum', cursive; }
+.pagina4 .menu-card .price { color: var(--gold); font-weight: 700; white-space: nowrap; }
+.pagina4 .menu-card p { color: var(--muted); font-size: 0.86rem; margin-top: 4px; line-height: 1.5; }
+
+.pagina4 .special-dish { display: grid; grid-template-columns: 1fr 1fr; min-height: 60vh; }
+.pagina4 .special-dish .banner { background-size: cover; background-position: center; background-color: var(--paper-2); min-height: 320px; }
+.pagina4 .special-dish .content { background: var(--paper); display: flex; flex-direction: column; justify-content: center; padding: 4rem 6%; text-align: center; }
+.pagina4 .special-dish .ingredients { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin: 1.4rem 0; }
+.pagina4 .special-dish .ingredients li { background: var(--gold-soft); color: var(--gold); padding: 4px 14px; border-radius: 20px; font-size: 0.85rem; }
+
+.pagina4 .testimonial-quote-mark { font-size: 5rem; color: var(--gold); line-height: 1; opacity: 0.6; font-family: 'Forum', cursive; }
+.pagina4 .testimonial-text { font-size: 1.4rem; max-width: 760px; margin: 1rem auto 2rem; line-height: 1.6; font-family: 'Forum', cursive; }
+.pagina4 .testimonial-avatar, .pagina4 .testimonial-avatar-placeholder { width: 84px; height: 84px; border-radius: 999px; object-fit: cover; margin: 0 auto 0.8rem; }
+.pagina4 .testimonial-avatar-placeholder { background: var(--paper-2); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.pagina4 .testimonial-name { color: var(--gold); letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; }
+.pagina4 .testimonial-nav { display: flex; justify-content: center; gap: 1.2rem; margin-top: 1.4rem; }
+.pagina4 .testimonial-nav button { background: none; border: 1px solid var(--muted); border-radius: 999px; width: 38px; height: 38px; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.pagina4 .testimonial-nav button:hover { border-color: var(--gold); color: var(--gold); }
+
+.pagina4 .contact-panel { display: grid; grid-template-columns: 1fr 1fr; max-width: 1000px; margin: 0 auto; background: var(--paper); border-radius: 12px; overflow: hidden; text-align: left; }
+.pagina4 .contact-panel .side { padding: 3rem 2.6rem; }
+.pagina4 .contact-panel .side-left { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 1rem; }
+.pagina4 .contact-panel .side-right { background: var(--paper-2); }
+.pagina4 .contact-panel .contact-label { color: var(--gold); font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase; margin-top: 1.2rem; }
+.pagina4 .contact-panel .contact-row { display: flex; align-items: flex-start; gap: 10px; margin-top: 1.2rem; color: var(--muted); }
+.pagina4 .contact-panel .contact-row svg { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+
+.pagina4 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+.pagina4 .feature-card { padding: 1rem; }
+.pagina4 .feature-card .icon-badge { width: 60px; height: 60px; margin: 0 auto 1rem; border-radius: 999px; background: var(--gold-soft); color: var(--gold); display: flex; align-items: center; justify-content: center; }
+.pagina4 .feature-card h3 { font-size: 1.1rem; font-family: 'Forum', cursive; margin-bottom: 6px; }
+.pagina4 .feature-card p { color: var(--muted); font-size: 0.86rem; }
+
+.pagina4 .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.6rem; max-width: 1100px; margin: 0 auto 2rem; }
+.pagina4 .event-card { background: var(--paper); border-radius: 10px; overflow: hidden; }
+.pagina4 .event-card .banner { height: 220px; overflow: hidden; }
+.pagina4 .event-card .banner img, .pagina4 .event-card .banner .img-placeholder { width: 100%; height: 100%; object-fit: cover; }
+.pagina4 .event-card .banner .img-placeholder { background: var(--paper-2); display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.pagina4 .event-card h3 { padding: 1.2rem 1.2rem 1.4rem; font-size: 1.1rem; font-family: 'Forum', cursive; }
+
+.pagina4 footer { background: var(--paper); border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+.pagina4 .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.4rem; padding: 4rem 6% 2rem; max-width: 1100px; margin: 0 auto; text-align: left; }
+.pagina4 .footer-grid h4 { font-family: 'Forum', cursive; color: var(--gold); margin-bottom: 1.2rem; font-size: 1.1rem; }
+.pagina4 .footer-grid .contact-row { display: flex; gap: 10px; color: var(--muted); margin-bottom: 0.8rem; font-size: 0.92rem; }
+.pagina4 .footer-grid .contact-row svg { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+.pagina4 .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.pagina4 .footer-links a { color: var(--muted); font-size: 0.92rem; }
+.pagina4 .footer-links a:hover { color: var(--gold); }
+.pagina4 .footer-bottom { padding: 1.6rem 6%; border-top: 1px solid rgba(255,255,255,0.06); color: var(--muted); font-size: 0.85rem; }
+
+.pagina4 .back-top-btn {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  z-index: 999;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #241d13;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.pagina4 .whatsapp-float {
+  position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+  width: 56px; height: 56px; border-radius: 999px;
+  background-color: #25d366; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease;
+}
+.pagina4 .whatsapp-float:hover { transform: scale(1.08); }
+
+@media (max-width: 900px) {
+  .pagina4 .about-grid, .pagina4 .special-dish, .pagina4 .contact-panel { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .pagina4 .nav-items { display: none; }
+  .pagina4 .nav-toggle { display: block; }
+  .pagina4 .topbar .item.hide-mobile { display: none; }
+}

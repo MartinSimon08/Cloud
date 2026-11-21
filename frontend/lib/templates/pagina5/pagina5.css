@@ -1,0 +1,218 @@
+/*
+ * Ported from frontend/Plantillas/Paginas/Pagina5 ("Kaff - Cafe & Coffee").
+ * Bright green coffee-shop look. Dropped: the online store / product grid
+ * (no e-commerce here), the day-by-day opening-hours list and "Beans
+ * Quality" filler (replaced with a single card showing the real `hours`
+ * text), the brand-logo strip and the photo lightbox gallery (none have
+ * backing data), and the newsletter form (no email capture in this app).
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap');
+
+.pagina5 {
+  --green: #4d8b55;
+  --ink: #1c1c1c;
+
+  font-family: 'Urbanist', sans-serif;
+  color: var(--ink);
+  background: #fff;
+}
+
+.pagina5 * { box-sizing: border-box; }
+.pagina5 a { text-decoration: none; color: inherit; cursor: pointer; }
+.pagina5 p { color: grey; line-height: 1.6; }
+
+.pagina5 .btn {
+  display: inline-block;
+  padding: 1rem 2.4rem;
+  background: var(--green);
+  border: 2px solid var(--green);
+  color: #fff;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.pagina5 .btn:hover { background: #fff; color: var(--green); }
+.pagina5 .btn-outline { background: transparent; color: var(--ink); border-color: #222; }
+.pagina5 .btn-outline:hover { background: #222; color: #fff; }
+.pagina5 .btn-outline-light { background: transparent; color: #fff; border-color: #fff; }
+.pagina5 .btn-outline-light:hover { background: #fff; color: var(--ink); }
+
+.pagina5 .topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 6%;
+}
+.pagina5 .logo { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; font-weight: 800; }
+.pagina5 .logo-badge { width: 40px; height: 40px; border-radius: 999px; object-fit: cover; }
+.pagina5 .nav-toggle { background: none; border: none; cursor: pointer; color: var(--ink); }
+.pagina5 .nav-mobile { display: none; }
+.pagina5 .nav-mobile.open {
+  display: flex; flex-direction: column; gap: 1.1rem;
+  padding: 1rem 6% 1.6rem;
+}
+.pagina5 .nav-mobile a { font-weight: 600; font-size: 1rem; }
+.pagina5 .nav-mobile a:hover { color: var(--green); }
+
+.pagina5 .hero {
+  position: relative;
+  min-height: 86vh;
+  background-size: cover;
+  background-position: center;
+  background-color: #1c1c1c;
+  display: flex;
+  align-items: center;
+}
+.pagina5 .hero::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.55); }
+.pagina5 .hero-content { position: relative; z-index: 2; text-align: center; max-width: 60%; margin: 0 auto; color: #fff; }
+.pagina5 .hero-content h1 { font-size: clamp(2.8rem, 9vw, 7.5rem); line-height: 1; margin-bottom: 1.2rem; }
+.pagina5 .hero-content h1 span { color: var(--green); }
+.pagina5 .hero-content p { color: #e9e9e9; opacity: 0.85; font-size: 1.1rem; max-width: 560px; margin: 0 auto 1.6rem; }
+
+.pagina5 .container { max-width: 1100px; margin: 0 auto; padding: 0 6%; }
+.pagina5 .section { padding: 5% 0; }
+.pagina5 .heading { text-align: center; margin-bottom: 2.4rem; }
+.pagina5 .heading h5 { color: var(--green); font-size: 1.1rem; font-weight: 700; }
+.pagina5 .heading h2 { font-size: clamp(1.8rem, 4vw, 3rem); margin-top: 6px; }
+
+.pagina5 .dish-strip { display: flex; gap: 1.6rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.6rem; }
+.pagina5 .dish-strip::-webkit-scrollbar { height: 8px; }
+.pagina5 .dish-strip::-webkit-scrollbar-thumb { background: var(--green); border-radius: 4px; }
+.pagina5 .dish-item { scroll-snap-align: start; flex: 0 0 240px; text-align: center; }
+.pagina5 .dish-item img, .pagina5 .dish-item .img-placeholder { width: 100%; height: 170px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem; }
+.pagina5 .dish-item .img-placeholder { background: #f2f1ed; display: flex; align-items: center; justify-content: center; color: #999; font-size: 0.85rem; }
+.pagina5 .dish-item h3 { font-size: 1.45rem; font-weight: 700; }
+.pagina5 .dish-item p { font-size: 0.9rem; margin-top: 4px; }
+.pagina5 .dish-item .price { color: var(--green); font-weight: 800; margin-top: 6px; }
+
+.pagina5 .wrapper {
+  position: relative;
+  color: #fff;
+  background-color: #1c1c1c;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 5% 6%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3rem;
+}
+.pagina5 .wrapper::after { content: ""; position: absolute; inset: 0; background: rgba(10, 10, 10, 0.55); }
+.pagina5 .wrapper .left { position: relative; z-index: 1; flex: 1 1 32rem; }
+.pagina5 .wrapper .right { position: relative; z-index: 1; flex: 1 1 28rem; }
+.pagina5 .wrapper .right img, .pagina5 .wrapper .right .img-placeholder { width: 100%; border-radius: 16px; display: block; aspect-ratio: 4/3.2; object-fit: cover; }
+.pagina5 .wrapper .right .img-placeholder { background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; }
+.pagina5 .wrapper h1 { font-size: clamp(2.2rem, 6vw, 5rem); font-weight: 800; line-height: 1.05; }
+.pagina5 .wrapper h1 span { color: var(--green); }
+.pagina5 .wrapper p.lead { margin-top: 1.2rem; color: #cfcfcf; }
+.pagina5 .wrapper .location { margin-top: 1.6rem; display: flex; align-items: center; gap: 1rem; }
+.pagina5 .wrapper .location svg { color: var(--green); flex-shrink: 0; }
+.pagina5 .wrapper .location h5 { font-size: 1rem; }
+.pagina5 .wrapper .location span { color: #bbb; font-size: 0.9rem; }
+.pagina5 .wrapper .buttons { margin-top: 1.6rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.pagina5 .features {
+  background: var(--green);
+  text-align: center;
+  padding: 4% 6%;
+}
+.pagina5 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; }
+.pagina5 .features-grid .box { color: #fff; }
+.pagina5 .features-grid .icon-badge {
+  width: 56px; height: 56px; margin: 0 auto 10px;
+  border-radius: 999px; background: rgba(255, 255, 255, 0.18);
+  display: flex; align-items: center; justify-content: center;
+}
+.pagina5 .features-grid p { color: #fff; font-weight: 700; margin-top: 6px; }
+
+.pagina5 .hours-card {
+  background: #1c1c1c;
+  color: #fff;
+  border-radius: 16px;
+  padding: 3rem 2.4rem;
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.pagina5 .hours-card .icon-badge { width: 60px; height: 60px; margin: 0 auto 1rem; border-radius: 999px; background: var(--green); display: flex; align-items: center; justify-content: center; }
+.pagina5 .hours-card h2 { font-size: 1.6rem; margin-bottom: 0.6rem; }
+.pagina5 .hours-card p { color: #ddd; white-space: pre-line; font-size: 1.05rem; }
+
+.pagina5 .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.pagina5 .gallery-grid .box { position: relative; display: block; aspect-ratio: 1/1; overflow: hidden; }
+.pagina5 .gallery-grid .box img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+.pagina5 .gallery-grid .box:hover img { transform: scale(1.08); }
+.pagina5 .gallery-grid .box .icon {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(20, 110, 70, 0.6);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.pagina5 .gallery-grid .box:hover .icon { opacity: 1; }
+
+.pagina5 .testimonials { background: #1c1c1c; color: #fff; text-align: center; }
+.pagina5 .testimonial-quote { max-width: 680px; margin: 0 auto; }
+.pagina5 .testimonial-quote svg { color: var(--green); }
+.pagina5 .testimonial-quote p { color: #fff; font-size: 1.3rem; font-style: italic; line-height: 1.7; margin: 1.4rem 0; }
+.pagina5 .testimonial-avatar { width: 84px; height: 84px; border-radius: 999px; object-fit: cover; margin: 0 auto 0.8rem; }
+.pagina5 .testimonial-avatar-placeholder {
+  width: 84px; height: 84px; border-radius: 999px; margin: 0 auto 0.8rem;
+  background: rgba(255, 255, 255, 0.12); display: flex; align-items: center; justify-content: center; font-weight: 700;
+}
+.pagina5 .testimonial-name { color: var(--green); font-weight: 700; }
+.pagina5 .testimonial-nav { display: flex; justify-content: center; gap: 1.4rem; margin-top: 1.6rem; }
+.pagina5 .testimonial-nav button { background: none; border: none; color: #fff; cursor: pointer; opacity: 0.7; }
+.pagina5 .testimonial-nav button:hover { opacity: 1; }
+.pagina5 .testimonial-dots { display: flex; justify-content: center; gap: 8px; margin-top: 1rem; }
+.pagina5 .testimonial-dots button { width: 8px; height: 8px; border-radius: 999px; border: none; background: rgba(255, 255, 255, 0.3); cursor: pointer; padding: 0; }
+.pagina5 .testimonial-dots button.active { background: var(--green); }
+
+.pagina5 .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.6rem; }
+.pagina5 .blog-card .image { height: 170px; overflow: hidden; border-radius: 10px; }
+.pagina5 .blog-card .image img, .pagina5 .blog-card .image .img-placeholder { width: 100%; height: 100%; object-fit: cover; }
+.pagina5 .blog-card .image .img-placeholder { background: #f2f1ed; display: flex; align-items: center; justify-content: center; color: #999; }
+.pagina5 .blog-card h3 { font-size: 1.1rem; font-weight: 800; margin-top: 1rem; }
+.pagina5 .blog-card .read-more { color: var(--green); font-size: 0.9rem; font-weight: 700; margin-top: 0.4rem; display: inline-block; }
+
+.pagina5 footer {
+  background-color: #1c1c1c;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+.pagina5 .footer-overlay { background: rgba(0, 0, 0, 0.55); }
+.pagina5 .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 3rem; padding: 5% 6%; }
+.pagina5 .footer-grid h3 { color: var(--green); font-size: 1.3rem; font-weight: 800; border-bottom: 3px solid var(--green); padding-bottom: 10px; margin-bottom: 1.4rem; display: inline-block; }
+.pagina5 .footer-grid p { color: #fff; opacity: 0.75; }
+.pagina5 .footer-socials { display: flex; gap: 1rem; margin-top: 1.4rem; }
+.pagina5 .footer-socials a {
+  width: 40px; height: 40px; border-radius: 999px; background: rgba(255, 255, 255, 0.12);
+  display: flex; align-items: center; justify-content: center; transition: 0.3s;
+}
+.pagina5 .footer-socials a:hover { background: var(--green); }
+.pagina5 .footer-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.6rem; }
+.pagina5 .footer-item svg { color: var(--green); flex-shrink: 0; margin-top: 2px; }
+.pagina5 .footer-item h5 { font-size: 1rem; margin-bottom: 4px; }
+.pagina5 .footer-item span { color: #ddd; display: block; font-size: 0.92rem; }
+.pagina5 .legal { border-top: 1px solid rgba(255, 255, 255, 0.2); padding: 1.6rem 6%; font-size: 0.9rem; opacity: 0.75; }
+
+.pagina5 .whatsapp-float {
+  position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+  width: 56px; height: 56px; border-radius: 999px;
+  background-color: #25d366; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+.pagina5 .whatsapp-float:hover { transform: scale(1.08); }
+
+@media (max-width: 760px) {
+  .pagina5 .hero-content { max-width: 88%; }
+  .pagina5 .wrapper { flex-direction: column; background-attachment: scroll; }
+}

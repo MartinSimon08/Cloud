@@ -22,11 +22,10 @@ Globals:
     Runtime: nodejs20.x
     Timeout: 10
     MemorySize: 256
-    ReservedConcurrentExecutions: 5
     Environment:
       Variables:
-        MONGODB_URI: "{{resolve:ssm-secure:/foodhub/mongodb-uri:1}}"
-        MONGODB_DB_NAME: foodhub
+        MONGODB_URI_PARAM: /foodhub/mongodb-uri
+        MONGODB_DB_NAME: foodhub_local
 
 Resources:
   HttpApi:
@@ -35,7 +34,7 @@ Resources:
       CorsConfiguration:
         AllowOrigins:
           - !Ref AllowedWebOrigin
-          - http://localhost:3000
+          - http://localhost:3002
         AllowHeaders:
           - authorization
           - content-type
@@ -67,6 +66,9 @@ Resources:
     Properties:
       CodeUri: .
       Handler: src/lambda/restaurants/index.handler
+      Policies:
+        - SSMParameterReadPolicy:
+            ParameterName: foodhub/mongodb-uri
       Events:
         ListRestaurants:
           Type: HttpApi
@@ -99,6 +101,106 @@ Resources:
             Path: /restaurants/{id}
             Method: delete
 
+  PagesFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints:
+          - src/lambda/pages/index.ts
+        Minify: true
+        Target: es2020
+    Properties:
+      CodeUri: .
+      Handler: src/lambda/pages/index.handler
+      Policies:
+        - SSMParameterReadPolicy:
+            ParameterName: foodhub/mongodb-uri
+      Events:
+        ListPages:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /restaurants/{id}/pages
+            Method: get
+        CreatePage:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /restaurants/{id}/pages
+            Method: post
+        GetPage:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /pages/{pageId}
+            Method: get
+        UpdatePage:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /pages/{pageId}
+            Method: put
+        DeletePage:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /pages/{pageId}
+            Method: delete
+
+  ImagesBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub foodhub-images-${AWS::AccountId}
+      PublicAccessBlockConfiguration:
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+      CorsConfiguration:
+        CorsRules:
+          - AllowedOrigins: ["*"]
+            AllowedMethods: [GET]
+
+  ImagesBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref ImagesBucket
+      PolicyDocument:
+        Statement:
+          - Sid: PublicReadOnly
+            Effect: Allow
+            Principal: "*"
+            Action: s3:GetObject
+            Resource: !Sub arn:aws:s3:::${ImagesBucket}/public/*
+
+  ImagesFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints:
+          - src/lambda/images/index.ts
+        Minify: true
+        Target: es2020
+    Properties:
+      CodeUri: .
+      Handler: src/lambda/images/index.handler
+      MemorySize: 512
+      Environment:
+        Variables:
+          IMAGES_BUCKET: !Ref ImagesBucket
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref ImagesBucket
+      Events:
+        UploadImage:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /images
+            Method: post
+
   MenusFunction:
     Type: AWS::Serverless::Function
     Metadata:
@@ -111,6 +213,9 @@ Resources:
     Properties:
       CodeUri: .
       Handler: src/lambda/menus/index.handler
+      Policies:
+        - SSMParameterReadPolicy:
+            ParameterName: foodhub/mongodb-uri
       Events:
         ListMenus:
           Type: HttpApi
@@ -150,3 +255,7 @@ Outputs:
     Value: !Ref ExistingUserPoolClientId
   HttpApiUrl:
     Value: !Sub "https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com"
+  ImagesBucketName:
+    Value: !Ref ImagesBucket
+  ImagesBucketUrl:
+    Value: !Sub "https://${ImagesBucket}.s3.${AWS::Region}.amazonaws.com"

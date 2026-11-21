@@ -93,7 +93,29 @@ NEXT_PUBLIC_COGNITO_USER_POOL_ID=<UserPoolId output / from step 1>
 NEXT_PUBLIC_COGNITO_CLIENT_ID=<UserPoolClientId output / from step 1>
 NEXT_PUBLIC_COGNITO_REGION=us-east-2
 NEXT_PUBLIC_API_BASE_URL=<HttpApiUrl output>
+NEXT_PUBLIC_IMAGES_BASE_URL=<ImagesBucketUrl output>
 ```
+
+Deployed values for this stack (account `229251310842`, region `us-east-2`):
+
+```
+NEXT_PUBLIC_COGNITO_USER_POOL_ID=us-east-2_p38HjKWPB
+NEXT_PUBLIC_COGNITO_CLIENT_ID=5912bg2v60apah89ssc8kglp1
+NEXT_PUBLIC_COGNITO_REGION=us-east-2
+NEXT_PUBLIC_API_BASE_URL=https://y8zxcm48j9.execute-api.us-east-2.amazonaws.com
+NEXT_PUBLIC_IMAGES_BASE_URL=https://foodhub-images-229251310842.s3.us-east-2.amazonaws.com
+```
+
+Production frontend: https://foodhub-silk-two.vercel.app (Vercel project
+`martin-simons-projects/foodhub`). `AllowedWebOrigin` on this stack is set to
+that URL (plus `http://localhost:3002` for local dev against this same
+backend) — redeploy with a new `AllowedWebOrigin` if the Vercel URL changes.
+
+A one-off migration (`frontend/scripts/migrate-to-cognito.mjs`) moved the
+pre-existing local-auth users to this Cognito pool and their data's `ownerId`
+fields to the new Cognito `sub`, and moved existing images from Mongo into
+the `ImagesBucket`. It's idempotent but only needs to run once — already run
+against this database.
 
 ## 7. Create indexes (once)
 

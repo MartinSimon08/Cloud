@@ -1,0 +1,199 @@
+/*
+ * Ported from frontend/Plantillas/Menus/Menu3 ("Verde Cocina Natural").
+ * Categories are dynamic here (derived from whatever `category` values the
+ * owner's items use) instead of the template's hardcoded CATEGORY_LABELS map.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+.menu3 {
+  --bg: #f4f7f2;
+  --paper: #ffffff;
+  --ink: #1f2b1d;
+  --muted: #68785f;
+  --line: #dfe7d8;
+  --green: #4c7c3f;
+  --green-soft: #e4efdc;
+  --accent: #e08a3e;
+
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100%;
+}
+
+.menu3 * {
+  box-sizing: border-box;
+}
+
+.menu3 .cover {
+  background: linear-gradient(135deg, var(--green), #2f5a26);
+  color: #fff;
+  padding: 44px 6% 56px;
+  text-align: center;
+}
+
+.menu3 .cover-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.menu3 .back-link {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #c9e6ab;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.menu3 .back-link:hover {
+  text-decoration: underline;
+}
+
+.menu3 .cover-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  object-fit: cover;
+  margin: 0 auto 16px;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.menu3 .cover-title {
+  font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.menu3 .cover-desc {
+  margin-top: 14px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e3efd8;
+}
+
+.menu3 .tabs {
+  max-width: 1000px;
+  margin: 30px auto 0;
+  padding: 0 6%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.menu3 .tab {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 8px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+.menu3 .tab:hover { border-color: var(--green); }
+.menu3 .tab.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.menu3 .menu-grid {
+  max-width: 1000px;
+  margin: 28px auto 70px;
+  padding: 0 6%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.menu3 .dish-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu3 .dish-category {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.menu3 .dish-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.menu3 .dish-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.menu3 .dish-price {
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.menu3 .dish-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.menu3 .dish-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.menu3 .ingredient-tag {
+  font-size: 0.76rem;
+  color: var(--muted);
+  background: var(--green-soft);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.menu3 .empty-msg {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 0;
+}
+
+.menu3 footer {
+  text-align: center;
+  padding: 30px 6% 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.menu3 .whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background-color: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+.menu3 .whatsapp-float:hover {
+  transform: scale(1.08);
+}

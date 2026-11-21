@@ -6,11 +6,10 @@ export const content: LandingContent = {
     links: [
       { label: "Inicio", href: "#top" },
       { label: "Producto", href: "#features" },
-      { label: "Cómo funciona", href: "#how" },
+      { label: "Cómo funciona", href: "#tutorial" },
       { label: "Por qué elegirnos", href: "#why" },
       { label: "Preguntas", href: "#faq" },
     ],
-    cta: "Pedí tu demo",
   },
   hero: {
     eyebrow: "Menú digital para bares y restaurantes · Argentina",

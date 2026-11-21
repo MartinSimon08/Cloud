@@ -1,0 +1,929 @@
+/*
+ * Ported from frontend/Plantillas/Paginas/Pagina6 ("FoodFast").
+ * Trimmed to the sections this round actually renders: header, hero,
+ * about/description, a new contact/location section, and footer.
+ * global.css + header.css + footer.css are kept close to the original;
+ * the hero/about rules are the subset of home.css those sections need;
+ * .section-contact is new, reusing the same design tokens.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+
+.pagina6 {
+  --color-primary: #a6a182;
+  --color-secondary: #1f2120;
+  --text-color: #aeb0b4;
+  --color-light: #fff;
+  --color-divider: #ffffff1a;
+  --dark-color-divider: #0e110d;
+  --default-font: 'Hanken Grotesk', serif;
+
+  font-family: var(--default-font);
+  color: var(--text-color);
+  background-color: var(--color-secondary);
+}
+
+.pagina6 * {
+  box-sizing: border-box;
+}
+
+.pagina6 input,
+.pagina6 button,
+.pagina6 textarea,
+.pagina6 select {
+  font-family: var(--default-font);
+}
+
+.pagina6 .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.pagina6 .background-dark-1 {
+  background-color: var(--dark-color-divider);
+}
+
+.pagina6 .background-dark-2 {
+  background-color: var(--color-secondary);
+}
+
+.pagina6 .container-logo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+}
+.pagina6 .container-logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 999px;
+}
+.pagina6 .container-logo span {
+  color: var(--color-light);
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.pagina6 .btn {
+  text-decoration: none;
+  padding: 17px 25px;
+  text-transform: capitalize;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  border: none;
+}
+.pagina6 .btn.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+}
+.pagina6 .btn.btn-primary:hover {
+  background-color: var(--color-light);
+  color: var(--dark-color-divider);
+}
+.pagina6 .btn.btn-secondary {
+  background-color: var(--color-light);
+  color: var(--dark-color-divider);
+}
+.pagina6 .btn.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+}
+
+.pagina6 .badge {
+  color: var(--color-primary);
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pagina6 .badge::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background-color: var(--color-primary);
+}
+
+.pagina6 .title {
+  font-size: 42px;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: 800;
+  color: var(--color-light);
+}
+.pagina6 .title span {
+  color: var(--color-primary);
+}
+@media (max-width: 992px) {
+  .pagina6 .title {
+    font-size: 34px;
+  }
+}
+@media (max-width: 768px) {
+  .pagina6 .title {
+    font-size: 24px;
+  }
+}
+
+.pagina6 section {
+  padding: 100px 0;
+}
+@media (max-width: 992px) {
+  .pagina6 section {
+    padding: 50px 15px;
+  }
+}
+
+/* ---------- HEADER ---------- */
+.pagina6 header {
+  border-bottom: 1px solid var(--color-divider);
+  padding: 30px 0;
+  width: 100%;
+  background-color: #00000060;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+.pagina6 .header-expand {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+.pagina6 .header-expand nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.pagina6 .header-expand nav ul {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+.pagina6 .header-expand nav a {
+  color: var(--color-light);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.pagina6 .header-expand nav a:hover {
+  color: var(--color-primary);
+}
+.pagina6 .btn-toggle {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-light);
+  border: none;
+  background-color: var(--color-primary);
+  width: 35px;
+  height: 35px;
+  border-radius: 7px;
+}
+.pagina6 .menu-responsive {
+  position: absolute;
+  left: 0;
+  transition: max-height 0.3s ease-in-out;
+  background-color: var(--color-primary);
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+}
+.pagina6 .menu-responsive ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  list-style: none;
+}
+.pagina6 .menu-responsive a {
+  color: var(--color-light);
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+}
+.pagina6 .menu-responsive.show {
+  max-height: 300px;
+}
+@media (max-width: 992px) {
+  .pagina6 header {
+    padding: 15px;
+  }
+  .pagina6 .header-expand nav,
+  .pagina6 .header-expand .btn-primary {
+    display: none;
+  }
+  .pagina6 .btn-toggle {
+    display: flex;
+  }
+}
+
+/* ---------- HERO ---------- */
+.pagina6 .hero-banner {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+.pagina6 .hero-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: -1;
+}
+.pagina6 .hero-banner > .container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.pagina6 .hero-banner .content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.pagina6 .hero-banner h1 {
+  font-size: 56px;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  font-weight: 800;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  color: var(--color-light);
+}
+.pagina6 .hero-banner h1 span {
+  color: var(--color-primary);
+}
+.pagina6 .hero-banner p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+.pagina6 .hero-banner .container-button {
+  margin-top: 30px;
+}
+.pagina6 .hero-banner .container-images {
+  flex: 1;
+  position: relative;
+}
+.pagina6 .hero-banner .main-image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 24px;
+}
+@media (max-width: 992px) {
+  .pagina6 .hero-banner {
+    min-height: auto;
+    padding-top: 140px;
+    background-attachment: scroll;
+  }
+  .pagina6 .hero-banner > .container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .pagina6 .hero-banner h1 {
+    font-size: 38px;
+  }
+}
+@media (max-width: 768px) {
+  .pagina6 .hero-banner h1 {
+    font-size: 30px;
+  }
+}
+
+/* ---------- ABOUT ---------- */
+.pagina6 .section-about > .container {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+.pagina6 .section-about .container-images {
+  flex: 1;
+  position: relative;
+}
+.pagina6 .section-about .main-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 999px;
+}
+.pagina6 .section-about .card-info {
+  border-radius: 15px;
+  background-color: var(--color-primary);
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pagina6 .section-about .card-info i {
+  color: var(--color-light);
+  font-size: 22px;
+}
+.pagina6 .section-about .card-info h3 {
+  color: var(--color-light);
+  font-size: 15px;
+  font-weight: 700;
+}
+.pagina6 .section-about .content {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pagina6 .section-about .content p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+.pagina6 .section-about .content ul {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 10px 0;
+  list-style: none;
+}
+.pagina6 .section-about .content li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.pagina6 .section-about .content li svg {
+  color: var(--dark-color-divider);
+  background-color: var(--color-primary);
+  padding: 5px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.pagina6 .section-about .content li span {
+  font-size: 17px;
+}
+.pagina6 .section-about .container-buttons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+}
+@media (max-width: 992px) {
+  .pagina6 .section-about > .container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .pagina6 .section-about .container-images {
+    order: 1;
+  }
+  .pagina6 .section-about .content {
+    order: -1;
+  }
+}
+
+/* ---------- MAIN DISHES ---------- */
+.pagina6 .section-main-dishes .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.pagina6 .section-main-dishes .content h2 {
+  text-align: center;
+  width: 70%;
+}
+.pagina6 .section-main-dishes .container-dishes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 50px 0;
+}
+.pagina6 .section-main-dishes .container-dish {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.pagina6 .section-main-dishes .container-dish img {
+  width: 70%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border-radius: 999px;
+  align-self: center;
+}
+.pagina6 .section-main-dishes .dish-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.pagina6 .section-main-dishes .dish-info h3 {
+  color: var(--color-light);
+  font-size: 22px;
+}
+.pagina6 .section-main-dishes .dish-info p {
+  text-align: center;
+  line-height: 1.4;
+  font-size: 18px;
+}
+@media (max-width: 992px) {
+  .pagina6 .section-main-dishes .container-dishes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .pagina6 .section-main-dishes .container-dishes {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- DAILY OFFER ---------- */
+.pagina6 .section-daily-offers > .container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.pagina6 .section-daily-offers .container-images {
+  flex: 1;
+  position: relative;
+}
+.pagina6 .section-daily-offers .main-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 24px;
+}
+.pagina6 .section-daily-offers .card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: var(--color-primary);
+  padding: 20px;
+  border-radius: 15px;
+  color: var(--color-light);
+  position: absolute;
+  bottom: 10px;
+  right: -10px;
+  max-width: 220px;
+}
+.pagina6 .section-daily-offers .card-info ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+.pagina6 .section-daily-offers .card-info li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.pagina6 .section-daily-offers .card-info i,
+.pagina6 .section-daily-offers .card-info svg {
+  color: var(--color-primary);
+  background-color: var(--color-light);
+  padding: 4px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.pagina6 .section-daily-offers .card-info span {
+  font-size: 14px;
+  font-weight: 600;
+}
+.pagina6 .section-daily-offers .content {
+  flex: 1.2;
+}
+@media (max-width: 992px) {
+  .pagina6 .section-daily-offers > .container {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+
+/* ---------- WHY US (ported from the original "our ingredients" section) ---------- */
+.pagina6 .section-our-ingredients > .container {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.pagina6 .section-our-ingredients .container-images {
+  flex: 1;
+  position: relative;
+}
+.pagina6 .section-our-ingredients .main-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 999px;
+}
+.pagina6 .section-our-ingredients .card-customers {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: var(--color-primary);
+  padding: 16px 20px;
+  border-radius: 15px;
+}
+.pagina6 .section-our-ingredients .card-customers p {
+  color: var(--color-light);
+  font-weight: 800;
+  text-align: center;
+  font-size: 16px;
+}
+.pagina6 .section-our-ingredients .content {
+  flex: 1.5;
+}
+.pagina6 .section-our-ingredients .container-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 35px 0;
+}
+.pagina6 .section-our-ingredients .container-option {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  text-align: center;
+}
+.pagina6 .section-our-ingredients .container-option svg {
+  color: var(--color-primary);
+  background-color: var(--dark-color-divider);
+  padding: 10px;
+  border-radius: 999px;
+}
+.pagina6 .section-our-ingredients .container-option h3 {
+  font-size: 16px;
+  color: var(--color-light);
+  font-weight: 700;
+}
+@media (max-width: 992px) {
+  .pagina6 .section-our-ingredients > .container {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+
+/* ---------- TESTIMONIALS ---------- */
+.pagina6 .section-testimonials {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--dark-color-divider);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.pagina6 .section-testimonials::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+.pagina6 .section-testimonials > .container {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 992px) {
+  .pagina6 .section-testimonials {
+    background-attachment: scroll;
+  }
+}
+.pagina6 .section-testimonials .content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+}
+.pagina6 .section-testimonials .content h2 {
+  width: 60%;
+  text-align: center;
+}
+.pagina6 .carousel-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+}
+.pagina6 .container-testimonials {
+  display: flex;
+  overflow-x: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  width: 90%;
+}
+.pagina6 .testimonial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  text-align: center;
+}
+.pagina6 .testimonial p {
+  font-size: 22px;
+  width: 80%;
+  line-height: 1.5;
+}
+.pagina6 .testimonial figure img {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+.pagina6 .testimonial h3 {
+  color: var(--color-primary);
+}
+.pagina6 .btn-carousel {
+  border: 1px solid var(--color-primary);
+  background: none;
+  color: var(--color-primary);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background-color 0.3s;
+}
+.pagina6 .btn-carousel:hover {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+}
+.pagina6 .btn-carousel.btn-prev {
+  left: 0;
+}
+.pagina6 .btn-carousel.btn-next {
+  right: 0;
+}
+@media (max-width: 768px) {
+  .pagina6 .testimonial p {
+    font-size: 17px;
+    width: 100%;
+  }
+}
+
+/* ---------- BLOG ---------- */
+.pagina6 .section-blog .content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.pagina6 .section-blog .content h2 {
+  text-align: center;
+  width: 60%;
+}
+.pagina6 .container-blogs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 50px;
+  width: 100%;
+}
+.pagina6 .container-blog figure {
+  overflow: hidden;
+  border-radius: 20px;
+}
+.pagina6 .container-blog figure img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: transform 0.4s ease-in-out;
+}
+.pagina6 .container-blog figure img:hover {
+  transform: scale(1.05);
+}
+.pagina6 .blog-info {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pagina6 .blog-info h3 a {
+  text-decoration: none;
+  color: var(--color-light);
+  font-size: 20px;
+  font-weight: 700;
+}
+.pagina6 .blog-info .container-button {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.pagina6 .blog-info .btn-read-more {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (max-width: 992px) {
+  .pagina6 .container-blogs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .pagina6 .container-blogs {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- CONTACT / LOCATION (new, not in the original template) ---------- */
+.pagina6 .section-contact > .container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+.pagina6 .section-contact .content {
+  flex: 1;
+  min-width: 280px;
+}
+.pagina6 .section-contact .info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 30px;
+  list-style: none;
+}
+.pagina6 .section-contact .info-list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.pagina6 .section-contact .info-list i {
+  font-size: 16px;
+  color: var(--dark-color-divider);
+  background-color: var(--color-primary);
+  padding: 10px;
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.pagina6 .section-contact .info-list span {
+  font-size: 17px;
+  padding-top: 8px;
+}
+.pagina6 .section-contact .social-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 30px;
+}
+.pagina6 .section-contact .social-links a {
+  text-decoration: none;
+  color: var(--color-light);
+  border: 1px solid var(--color-divider);
+  border-radius: 999px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.pagina6 .section-contact .social-links a:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--dark-color-divider);
+}
+.pagina6 .section-contact .map-card {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: var(--dark-color-divider);
+  padding: 40px;
+  text-align: center;
+}
+
+/* ---------- FOOTER ---------- */
+.pagina6 footer {
+  padding: 80px 0;
+}
+.pagina6 footer > .container {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+.pagina6 footer .content ul {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 25px;
+  list-style: none;
+}
+.pagina6 footer .content li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.pagina6 footer .content span {
+  font-size: 17px;
+}
+.pagina6 .container-social-copyright {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.pagina6 .container-social-copyright ul {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+  list-style: none;
+}
+.pagina6 .container-social-copyright a {
+  text-decoration: none;
+  color: var(--color-light);
+  border: 1px solid var(--color-divider);
+  border-radius: 999px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.pagina6 .container-social-copyright a:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--dark-color-divider);
+}
+.pagina6 .container-social-copyright p {
+  font-size: 16px;
+}
+@media (max-width: 768px) {
+  .pagina6 .container-social-copyright {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------- WHATSAPP FLOAT ---------- */
+.pagina6 .whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background-color: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+.pagina6 .whatsapp-float:hover {
+  transform: scale(1.08);
+}
+
+/* ---------- PLACEHOLDER (no logo/cover uploaded yet) ---------- */
+.pagina6 .img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--dark-color-divider));
+  color: var(--color-light);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
