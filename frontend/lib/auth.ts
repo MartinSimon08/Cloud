@@ -47,6 +47,28 @@ export function resendConfirmationCode(email: string): Promise<void> {
   });
 }
 
+/** Starts the "forgot password" flow — Cognito emails a verification code. */
+export function forgotPassword(email: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const user = new CognitoUser({ Username: email, Pool: getUserPool() });
+    user.forgotPassword({
+      onSuccess: () => resolve(),
+      onFailure: (err) => reject(err),
+    });
+  });
+}
+
+/** Completes the "forgot password" flow with the emailed code and a new password. */
+export function confirmForgotPassword(email: string, code: string, newPassword: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const user = new CognitoUser({ Username: email, Pool: getUserPool() });
+    user.confirmPassword(code, newPassword, {
+      onSuccess: () => resolve(),
+      onFailure: (err) => reject(err),
+    });
+  });
+}
+
 export function signIn(email: string, password: string): Promise<CognitoUserSession> {
   return new Promise((resolve, reject) => {
     const user = new CognitoUser({ Username: email, Pool: getUserPool() });

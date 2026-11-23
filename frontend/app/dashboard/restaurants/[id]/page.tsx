@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, ApiError, type BillingInfo, type Menu, type Page, type Restaurant } from "@/lib/api";
 import { ConfirmDeleteDialog } from "@/app/dashboard/_components/ConfirmDeleteDialog";
+import { QrCodeModal } from "@/app/dashboard/_components/QrCodeModal";
 import { PAGE_TEMPLATES, MENU_TEMPLATES } from "@/lib/templates/registry";
 import { featureCovers } from "@/lib/billing";
 
@@ -43,6 +44,7 @@ export default function RestaurantDetailPage() {
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [qrFor, setQrFor] = useState<"page" | "menu" | null>(null);
 
   useEffect(() => {
     Promise.all([
@@ -186,7 +188,15 @@ export default function RestaurantDetailPage() {
                     className="font-bold text-sky-600 hover:underline dark:text-sky-300"
                   >
                     Ver página pública →
-                  </Link>
+                  </Link>{" "}
+                  ·{" "}
+                  <button
+                    type="button"
+                    onClick={() => setQrFor("page")}
+                    className="font-bold text-sky-600 hover:underline dark:text-sky-300"
+                  >
+                    Código QR
+                  </button>
                 </>
               )}
             </p>
@@ -305,7 +315,15 @@ export default function RestaurantDetailPage() {
                     className="font-bold text-sky-600 hover:underline dark:text-sky-300"
                   >
                     Ver menú público →
-                  </Link>
+                  </Link>{" "}
+                  ·{" "}
+                  <button
+                    type="button"
+                    onClick={() => setQrFor("menu")}
+                    className="font-bold text-sky-600 hover:underline dark:text-sky-300"
+                  >
+                    Código QR
+                  </button>
                 </>
               )}
             </p>
@@ -455,6 +473,14 @@ export default function RestaurantDetailPage() {
           deleting={deleting}
           onConfirm={handleDeleteRestaurant}
           onCancel={() => setDeleteOpen(false)}
+        />
+      )}
+
+      {qrFor && restaurant?.slug && (
+        <QrCodeModal
+          label={qrFor === "page" ? "Página" : "Menú"}
+          url={`${window.location.origin}/${restaurant.slug}${qrFor === "menu" ? "/menu" : ""}`}
+          onClose={() => setQrFor(null)}
         />
       )}
     </div>

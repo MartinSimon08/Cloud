@@ -3,6 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { whatsappHref } from "@/lib/whatsapp";
+import { CartProvider } from "@/lib/cart/CartContext";
+import { CartWidget } from "@/lib/cart/CartWidget";
+import { AddToCartButton } from "@/lib/cart/AddToCartButton";
 import type { PublicMenuData } from "@/lib/templates/menuData";
 import "./menu4.css";
 
@@ -45,6 +48,7 @@ export function Menu4Page({ data }: { data: Menu4Data }) {
   );
 
   return (
+    <CartProvider>
     <div className="menu4">
       <header className="cover">
         <div className="cover-inner">
@@ -111,6 +115,7 @@ export function Menu4Page({ data }: { data: Menu4Data }) {
                       ))}
                     </div>
                   )}
+                  <AddToCartButton item={item} />
                 </div>
               </article>
             ))
@@ -134,6 +139,8 @@ export function Menu4Page({ data }: { data: Menu4Data }) {
           <WhatsAppIcon />
         </a>
       )}
+      <CartWidget whatsapp={data.whatsapp} restaurantName={data.restaurantName} />
     </div>
+    </CartProvider>
   );
 }

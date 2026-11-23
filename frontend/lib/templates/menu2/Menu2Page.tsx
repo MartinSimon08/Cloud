@@ -3,6 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { whatsappHref } from "@/lib/whatsapp";
+import { CartProvider } from "@/lib/cart/CartContext";
+import { CartWidget } from "@/lib/cart/CartWidget";
+import { AddToCartButton } from "@/lib/cart/AddToCartButton";
 import type { PublicMenuData } from "@/lib/templates/menuData";
 import "./menu2.css";
 
@@ -38,6 +41,7 @@ export function Menu2Page({ data }: { data: Menu2Data }) {
   const categoriesToShow = activeCategory === "todos" ? categories : [activeCategory];
 
   return (
+    <CartProvider>
     <div className="menu2">
       <header className="cover">
         <div className="cover-inner">
@@ -106,6 +110,7 @@ export function Menu2Page({ data }: { data: Menu2Data }) {
                             ))}
                           </div>
                         )}
+                        <AddToCartButton item={item} />
                       </div>
                     </article>
                   ))}
@@ -133,6 +138,8 @@ export function Menu2Page({ data }: { data: Menu2Data }) {
           <WhatsAppIcon />
         </a>
       )}
+      <CartWidget whatsapp={data.whatsapp} restaurantName={data.restaurantName} />
     </div>
+    </CartProvider>
   );
 }

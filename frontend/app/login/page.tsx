@@ -3,10 +3,18 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signUp, confirmSignUp, resendConfirmationCode, signIn, syncIdTokenCookie } from "@/lib/auth";
+import {
+  signUp,
+  confirmSignUp,
+  resendConfirmationCode,
+  signIn,
+  syncIdTokenCookie,
+  forgotPassword,
+  confirmForgotPassword,
+} from "@/lib/auth";
 import { ThemeToggle } from "@/app/_components/ThemeToggle";
 
-type Mode = "login" | "register" | "confirm";
+type Mode = "login" | "register" | "confirm" | "forgot" | "reset";
 
 const inputClass =
   "w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-2 focus:ring-sky-500/20 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-white/35 dark:focus:border-sky-400 dark:focus:bg-transparent";
@@ -108,6 +116,48 @@ export default function LoginPage() {
     }
   }
 
+  async function handleForgotSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    const form = new FormData(e.currentTarget);
+    const email = String(form.get("email") ?? "");
+
+    setLoading(true);
+    try {
+      await forgotPassword(email);
+      setPendingEmail(email);
+      switchMode("reset");
+      setNotice("Te mandamos un código por email para elegir una nueva contraseña.");
+    } catch (err) {
+      setError(errorMessage(err));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleResetSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setError(null);
+    const form = new FormData(e.currentTarget);
+    const code = String(form.get("code") ?? "");
+
+    if (passwordsMismatch || registerPassword !== confirmPassword) {
+      setError("Las contraseñas no coinciden.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await confirmForgotPassword(pendingEmail, code, registerPassword);
+      switchMode("login");
+      setNotice("Contraseña actualizada — ya podés iniciar sesión.");
+    } catch (err) {
+      setError(errorMessage(err));
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="flex min-h-full flex-1 flex-col bg-gradient-to-b from-sky-100/40 via-[#F8FAFC] to-slate-100/70 px-5 py-10 dark:from-[#0c1220] dark:via-[#090D16] dark:to-[#090D16]">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">
@@ -120,7 +170,7 @@ export default function LoginPage() {
         </div>
 
         <div className="rounded-3xl border-2 border-slate-200/90 bg-white p-6 shadow-xl shadow-sky-500/5 sm:p-8 dark:border-white/10 dark:bg-[#141824] dark:shadow-none">
-          {mode !== "confirm" && (
+          {(mode === "login" || mode === "register") && (
             <div className="mb-6 flex rounded-xl border border-slate-200 bg-slate-100 p-1 text-sm font-bold dark:border-white/10 dark:bg-white/5">
               <button
                 type="button"
@@ -175,6 +225,15 @@ export default function LoginPage() {
               >
                 {loading ? "Ingresando…" : "Ingresar"}
               </button>
+              <p className="text-center text-xs text-slate-500 dark:text-[#F5F2EA]/50">
+                <button
+                  type="button"
+                  onClick={() => switchMode("forgot")}
+                  className="font-bold text-sky-600 hover:underline dark:text-sky-300"
+                >
+                  ¿Olvidaste tu contraseña?
+                </button>
+              </p>
               <p className="text-center text-xs text-slate-500 dark:text-[#F5F2EA]/50">
                 ¿No tenés cuenta todavía?{" "}
                 <button
@@ -267,6 +326,88 @@ export default function LoginPage() {
               <p className="text-center text-xs text-slate-500 dark:text-[#F5F2EA]/50">
                 ¿No te llegó?{" "}
                 <button type="button" onClick={handleResend} className="font-bold text-sky-600 hover:underline dark:text-sky-300">
+                  Reenviar código
+                </button>
+              </p>
+            </form>
+          )}
+
+          {mode === "forgot" && (
+            <form onSubmit={handleForgotSubmit} className="flex flex-col gap-4">
+              <p className="text-sm text-slate-600 dark:text-[#F5F2EA]/70">
+                Ingresá tu email y te mandamos un código para elegir una nueva contraseña.
+              </p>
+              <label className={labelClass}>
+                Email
+                <input name="email" type="email" required placeholder="tu@negocio.com" className={inputClass} />
+              </label>
+              <button
+                type="submit"
+                disabled={loading}
+                className="mt-2 flex h-11 w-full items-center justify-center gap-2 rounded-full bg-sky-500 px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-sky-600 active:scale-[0.99] disabled:opacity-60"
+              >
+                {loading ? "Enviando…" : "Enviar código"}
+              </button>
+              <p className="text-center text-xs text-slate-500 dark:text-[#F5F2EA]/50">
+                <button type="button" onClick={() => switchMode("login")} className="font-bold text-sky-600 hover:underline dark:text-sky-300">
+                  ← Volver a iniciar sesión
+                </button>
+              </p>
+            </form>
+          )}
+
+          {mode === "reset" && (
+            <form onSubmit={handleResetSubmit} className="flex flex-col gap-4">
+              <p className="text-sm text-slate-600 dark:text-[#F5F2EA]/70">
+                Ingresá el código que te mandamos a <strong>{pendingEmail}</strong> y tu nueva contraseña.
+              </p>
+              <label className={labelClass}>
+                Código de verificación
+                <input name="code" type="text" required inputMode="numeric" placeholder="123456" className={inputClass} />
+              </label>
+              <label className={labelClass}>
+                Nueva contraseña
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  minLength={8}
+                  placeholder="••••••••"
+                  className={inputClass}
+                  value={registerPassword}
+                  onChange={(e) => setRegisterPassword(e.target.value)}
+                />
+                <span className="text-[11px] font-normal text-slate-400 dark:text-[#F5F2EA]/40">
+                  Mínimo 8 caracteres, con mayúscula, minúscula, número y símbolo.
+                </span>
+              </label>
+              <label className={labelClass}>
+                Confirmar nueva contraseña
+                <input
+                  name="confirmPassword"
+                  type="password"
+                  required
+                  minLength={8}
+                  placeholder="••••••••"
+                  className={inputClass}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                {passwordsMismatch && (
+                  <span className="text-[11px] font-semibold text-red-500 dark:text-red-400">
+                    Las contraseñas no coinciden.
+                  </span>
+                )}
+              </label>
+              <button
+                type="submit"
+                disabled={loading || passwordsMismatch}
+                className="mt-2 flex h-11 w-full items-center justify-center gap-2 rounded-full bg-sky-500 px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-sky-600 active:scale-[0.99] disabled:opacity-60"
+              >
+                {loading ? "Guardando…" : "Guardar nueva contraseña"}
+              </button>
+              <p className="text-center text-xs text-slate-500 dark:text-[#F5F2EA]/50">
+                <button type="button" onClick={() => switchMode("forgot")} className="font-bold text-sky-600 hover:underline dark:text-sky-300">
                   Reenviar código
                 </button>
               </p>
