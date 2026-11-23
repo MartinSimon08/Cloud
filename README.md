@@ -48,7 +48,6 @@ flowchart LR
 
 Vercel aloja el frontend Next.js, que renderiza server-side las páginas públicas de cada restaurante (`/slug` y `/slug/menu`) leyendo Mongo directo, y además expone un puñado de rutas API propias para billing (plan simulado) y el panel de admin ,  esas dos cosas quedaron fuera de Lambda a propósito, no forman parte del flujo que pedía la materia. Cognito maneja el login y el registro reales (alta, confirmación por email, recuperación de contraseña), y el frontend manda el ID token de Cognito como `Authorization: Bearer` en cada llamada autenticada. El CRUD de restaurantes, páginas, menús e imágenes vive en cuatro funciones Lambda (Node 20 + TypeScript) detrás de API Gateway, cada una validando ese token antes de tocar la base. Las fotos (logo, portada, platos) se guardan en S3 y se sirven públicas con caché larga. MongoDB Atlas es la única base de datos, usada tanto por las Lambdas como por el frontend.
 
-La idea original (`checkpoint1/Cloud.jpg`) contemplaba además cargar el menú completo a partir de una foto analizada por IA (OCR); se descartó por alcance, así que hoy la carga de platos es manual, directo en el panel.
 
 El detalle de cómo está desplegada la infraestructura (parámetros del stack, variables de entorno, permisos IAM) está en [`infra/README.md`](infra/README.md).
 
